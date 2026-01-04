@@ -155,7 +155,7 @@ test "Runtime.newClass registers a class" {
 
     try testing.expect(!rt.isRegisteredClass(class_id));
 
-    const def = Def{ .class_name = "TestClass" };
+    const def: Def = .{ .class_name = "TestClass" };
     try rt.newClass(class_id, &def);
 
     try testing.expect(rt.isRegisteredClass(class_id));
@@ -172,7 +172,7 @@ test "Runtime.getClassName returns class name" {
 
     try testing.expect(!rt.isRegisteredClass(class_id));
 
-    const def = Def{ .class_name = "MyCustomClass" };
+    const def: Def = .{ .class_name = "MyCustomClass" };
     try rt.newClass(class_id, &def);
 
     try testing.expect(rt.isRegisteredClass(class_id));
@@ -192,7 +192,7 @@ test "Value.initObjectClass creates class instance" {
 
     const class_id: Id = .new(rt);
 
-    const def = Def{ .class_name = "InstanceTest" };
+    const def: Def = .{ .class_name = "InstanceTest" };
     try rt.newClass(class_id, &def);
 
     const proto = Value.initObject(ctx);
@@ -215,7 +215,7 @@ test "Value opaque data round-trip" {
 
     const class_id: Id = .new(rt);
 
-    const def = Def{ .class_name = "OpaqueTest" };
+    const def: Def = .{ .class_name = "OpaqueTest" };
     try rt.newClass(class_id, &def);
 
     const proto = Value.initObject(ctx);
@@ -226,7 +226,7 @@ test "Value opaque data round-trip" {
     defer obj.deinit(ctx);
 
     const TestData = struct { value: i32 };
-    var data = TestData{ .value = 42 };
+    var data: TestData = .{ .value = 42 };
 
     try testing.expect(obj.setOpaque(&data));
 
@@ -248,7 +248,7 @@ test "Value.getAnyOpaque retrieves opaque with class ID" {
 
     const class_id: Id = .new(rt);
 
-    const def = Def{ .class_name = "AnyOpaqueTest" };
+    const def: Def = .{ .class_name = "AnyOpaqueTest" };
     try rt.newClass(class_id, &def);
 
     const proto = Value.initObject(ctx);
@@ -259,7 +259,7 @@ test "Value.getAnyOpaque retrieves opaque with class ID" {
     defer obj.deinit(ctx);
 
     const TestData = struct { value: i32 };
-    var data = TestData{ .value = 99 };
+    var data: TestData = .{ .value = 99 };
     try testing.expect(obj.setOpaque(&data));
 
     const result = obj.getAnyOpaque(TestData);
@@ -277,7 +277,7 @@ test "Value.getClassId returns class ID for class objects" {
 
     const class_id: Id = .new(rt);
 
-    const def = Def{ .class_name = "ClassIdTest" };
+    const def: Def = .{ .class_name = "ClassIdTest" };
     try rt.newClass(class_id, &def);
 
     const proto = Value.initObject(ctx);
@@ -304,7 +304,7 @@ test "Context.setClassProto and getClassProto" {
 
     const class_id: Id = .new(rt);
 
-    const def = Def{ .class_name = "ProtoTest" };
+    const def: Def = .{ .class_name = "ProtoTest" };
     try rt.newClass(class_id, &def);
 
     const proto = Value.initObject(ctx);

@@ -725,7 +725,7 @@ test "Runtime opaque data" {
         value: i32,
     };
 
-    var data = TestData{ .value = 42 };
+    var data: TestData = .{ .value = 42 };
 
     // Initially null
     try std.testing.expectEqual(@as(?*TestData, null), rt.getOpaque(TestData));
