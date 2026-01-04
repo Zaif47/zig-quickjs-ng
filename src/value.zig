@@ -1582,6 +1582,37 @@ pub const Value = extern struct {
         return fromCVal(c.JS_PromiseResult(ctx.cval(), self.cval()));
     }
 
+    /// A promise with its resolve/reject capability functions.
+    pub const Promise = struct {
+        value: Value,
+        resolve: Value,
+        reject: Value,
+
+        /// Deinitializes all three values.
+        pub fn deinit(self: Promise, ctx: *Context) void {
+            self.value.deinit(ctx);
+            self.resolve.deinit(ctx);
+            self.reject.deinit(ctx);
+        }
+    };
+
+    /// Creates a new Promise with its resolve/reject functions.
+    ///
+    /// Returns a Promise struct containing the promise value and its
+    /// resolve/reject functions. All three values must be freed when
+    /// no longer needed (or call `Promise.deinit` to free all at once).
+    ///
+    /// C: `JS_NewPromiseCapability`
+    pub fn initPromiseCapability(ctx: *Context) Promise {
+        var resolving_funcs: [2]Value = undefined;
+        const promise = fromCVal(c.JS_NewPromiseCapability(ctx.cval(), @ptrCast(&resolving_funcs)));
+        return .{
+            .value = promise,
+            .resolve = resolving_funcs[0],
+            .reject = resolving_funcs[1],
+        };
+    }
+
     // -----------------------------------------------------------------------
     // Class / Opaque data
     // -----------------------------------------------------------------------
@@ -2416,6 +2447,33 @@ test "Promise state" {
     const num = ctx.eval("42", "<test>", .{});
     defer num.deinit(ctx);
     try testing.expectEqual(PromiseState.not_a_promise, num.promiseState(ctx));
+}
+
+test "initPromiseCapability" {
+    const rt: *Runtime = try .init();
+    defer rt.deinit();
+
+    const ctx: *Context = try .init(rt);
+    defer ctx.deinit();
+
+    const promise: Value.Promise = Value.initPromiseCapability(ctx);
+    defer promise.resolve.deinit(ctx);
+    defer promise.reject.deinit(ctx);
+    defer promise.value.deinit(ctx);
+
+    try testing.expect(promise.value.isPromise());
+    try testing.expectEqual(PromiseState.pending, promise.value.promiseState(ctx));
+
+    // Resolve the promise
+    const val: Value = .initInt32(42);
+    const resolve_result = promise.resolve.call(ctx, .undefined, &.{val});
+    defer resolve_result.deinit(ctx);
+
+    try testing.expectEqual(PromiseState.fulfilled, promise.value.promiseState(ctx));
+
+    const result = promise.value.promiseResult(ctx);
+    defer result.deinit(ctx);
+    try testing.expectEqual(@as(i32, 42), try result.toInt32(ctx));
 }
 
 test "instanceof" {
