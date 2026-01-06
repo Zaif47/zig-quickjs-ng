@@ -32,10 +32,14 @@
         pkgs = import nixpkgs {inherit overlays system;};
       in rec {
         devShells.default = pkgs.mkShell {
-          nativeBuildInputs = with pkgs; [
-            typos
-            zig
-          ];
+          nativeBuildInputs = with pkgs;
+            [
+              typos
+              zig
+            ]
+            ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
+              qemu
+            ];
         };
 
         devShell = self.devShells.${system}.default;
